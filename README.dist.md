@@ -9,7 +9,7 @@ A Docker environment is provided and requires you to have these tools available:
  * Docker
  * Bash
  * PHP >= 8.1
- * [Castor](https://github.com/jolicode/castor)
+ * [Castor](https://github.com/jolicode/castor#installation)
 
 #### Castor
 

@@ -10,14 +10,14 @@ use Symfony\Component\Process\Process;
 use function Castor\log;
 use function Castor\run;
 
-#[AsTask(description: 'Display some help and available urls for the current project')]
+#[AsTask(description: 'Displays some help and available urls for the current project')]
 function about(Context $c, SymfonyStyle $io)
 {
     $io->section('About this project');
 
     $io->comment('Run <comment>castor</comment> to display all available commands.');
-    $io->comment('Run <comment>castor about</comment> to display this help.');
-    $io->comment('Run <comment>castor help [command]</comment> to display Symfony help.');
+    $io->comment('Run <comment>castor about</comment> to display this project help.');
+    $io->comment('Run <comment>castor help [command]</comment> to display Castor help.');
 
     $io->section('Available URLs for this project:');
     $urls = [$c['root_domain'], ...$c['extra_domains']];

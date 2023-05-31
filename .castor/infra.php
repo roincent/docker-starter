@@ -49,7 +49,7 @@ function ps()
     docker_compose(['ps'], withBuilder: false);
 }
 
-#[AsTask(description: 'Clean the infrastructure (remove container, volume, networks)')]
+#[AsTask(description: 'Cleans the infrastructure (remove container, volume, networks)')]
 function destroy(
     Context $c,
     SymfonyStyle $io,
@@ -70,7 +70,7 @@ function destroy(
     fs()->remove(glob($c['root_dir'] . '/infrastructure/docker/services/router/etc/ssl/certs/*.pem'));
 }
 
-#[AsTask(description: 'Generate SSL certificates (with mkcert if available or self-signed if not)')]
+#[AsTask(description: 'Generates SSL certificates (with mkcert if available or self-signed if not)')]
 function generate_certificates(
     Context $c,
     SymfonyStyle $io,
