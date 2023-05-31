@@ -79,7 +79,7 @@ function generate_certificates(
 ) {
     if (file_exists($c['root_dir'] . '/infrastructure/docker/services/router/etc/ssl/certs/cert.pem') && !$force) {
         $io->comment('SSL certificates already exists.');
-        $io->note('Run "castor infrastructure:generate-certificates --force" to generate new certificates.');
+        $io->note('Run "castor infra:generate-certificates --force" to generate new certificates.');
 
         return;
     }
