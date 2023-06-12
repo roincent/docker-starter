@@ -1,15 +1,18 @@
 <?php
 
 use Castor\Attribute\AsTask;
-use Castor\Context;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 use function Castor\import;
+use function Castor\io;
 use function Castor\notify;
+use function Castor\variable;
 
 import(__DIR__ . '/.castor');
 
-function create_default_parameters(): array
+/**
+ * @return array<string, mixed>
+ */
+function create_default_variables(): array
 {
     $projectName = 'app';
     $tld = 'test';
@@ -26,27 +29,27 @@ function create_default_parameters(): array
 }
 
 #[AsTask(description: 'Builds and starts the infrastructure, then install the application (composer, yarn, ...)')]
-function start(Context $c, SymfonyStyle $io)
+function start(): void
 {
     infra\workers_stop();
-    infra\generate_certificates($c, $io, false);
-    infra\build($c);
+    infra\generate_certificates(false);
+    infra\build();
     infra\up();
     cache_clear();
-    install($c);
+    install();
     migrate();
     infra\workers_start();
 
     notify('The stack is now up and running.');
-    $io->success('The stack is now up and running.');
+    io()->success('The stack is now up and running.');
 
-    about($c, $io);
+    about();
 }
 
 #[AsTask(description: 'Installs the application (composer, yarn, ...)', namespace: 'app')]
-function install(Context $c)
+function install(): void
 {
-    $basePath = sprintf('%s/%s', $c['root_dir'], $c['project_directory']);
+    $basePath = sprintf('%s/%s', variable('root_dir'), variable('project_directory'));
 
     if (is_file("{$basePath}/composer.json")) {
         docker_compose_run('composer install -n --prefer-dist --optimize-autoloader');
@@ -59,13 +62,13 @@ function install(Context $c)
 }
 
 #[AsTask(description: 'Clear the application cache', namespace: 'app')]
-function cache_clear()
+function cache_clear(): void
 {
     // docker_compose_run('rm -rf var/cache/ && bin/console cache:warmup');
 }
 
 #[AsTask(description: 'Migrates database schema', namespace: 'app:db')]
-function migrate()
+function migrate(): void
 {
     // docker_compose_run('bin/console doctrine:database:create --if-not-exists');
     // docker_compose_run('bin/console doctrine:migration:migrate -n --allow-no-migration');
