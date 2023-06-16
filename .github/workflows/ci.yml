@@ -46,10 +46,11 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: 8.2
+                    tools: jolicode/castor
 
-            -
-                name: 'Download castor'
-                run: 'wget https://github.com/jolicode/castor/releases/latest/download/castor.linux-amd64.phar && chmod +x castor.linux-amd64.phar && sudo mv castor.linux-amd64.phar /usr/local/bin/castor'
+            # -
+            #     name: 'Download castor'
+            #     run: 'wget https://github.com/jolicode/castor/releases/latest/download/castor.linux-amd64.phar && chmod +x castor.linux-amd64.phar && sudo mv castor.linux-amd64.phar /usr/local/bin/castor'
 
             -
                 name: 'Build and start the infrastructure'
